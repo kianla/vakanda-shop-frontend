@@ -1,0 +1,1 @@
+https://github.com/kianla/vakanda-shop-frontend
