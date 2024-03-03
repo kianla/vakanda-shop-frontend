@@ -23,3 +23,9 @@ export type Order = {
     price: number;
     order_items: Array<Item>;
 }
+export type User = {
+    id: number;
+    username: string;
+    email: string;
+    address: string;
+}

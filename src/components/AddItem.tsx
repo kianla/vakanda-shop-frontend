@@ -11,8 +11,9 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import UserAPI from '../api/user';
+import ItemAPI from '../api/item';
 import { useNavigate } from 'react-router-dom';
+import { Card, CardContent, CardMedia } from '@mui/material';
 
 function Copyright(props: any) {
   return (
@@ -30,56 +31,50 @@ function Copyright(props: any) {
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function SignUp() {
+export default function AddNewItem() {
   const navigate = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      username: data.get('username'),
-      address: data.get('address'),
-      email: data.get('email'),
-      password: data.get('password')
-    });
-    await UserAPI.signUp(
-      data.get('username') as string,
-      data.get('password') as string,
-      data.get('email') as string,
-      data.get('address') as string,
-      'Customer'
+   
+    await ItemAPI.AddItem(
+      data.get('Item Name') as string,
+      data.get('discription') as string,
+      data.get('photo') as string,
+      data.get('item_count') as unknown as number,
+      data.get('price') as unknown as number,
+      data.get('group_id') as unknown as number,
     ).then((response) => {
-      navigate('/SignIn') 
+      navigate('/Dashboard') 
     }).catch(error => console.log(error))
   };
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
             marginTop: 8,
+            marginLeft: 8,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-          </Avatar>
           <Typography component="h1" variant="h5">
-            Sign up
+            Add Item
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  autoComplete="given-name"
-                  name="username"
+                  autoComplete="null"
+                  name="Item Name"
                   required
                   fullWidth
-                  id="Username"
-                  label="Username"
+                  id="ItemName"
+                  label="Item Name"
                   autoFocus
                 />
               </Grid>
@@ -87,34 +82,56 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
-                  id="address"
-                  label="Address"
-                  name="address"
-                  autoComplete="address"
+                  id="discription"
+                  label="Discription"
+                  name="discription"
+                  autoComplete="discription"
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
+                  id="photo"
+                  label="Photo URL"
+                  name="photo"
+                  autoComplete="https://th.bing.com/th/id/OIG2.sEmnADauMy8fKOD81QbJ?w=270&h=270&c=6&r=0&o=5&dpr=1.6&pid=ImgGn"
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
+                  name="item_count"
+                  label="Item count"
+                  type="item_count"
+                  id="item_count"
+                  autoComplete="0"
                 />
               </Grid>
-              
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="price"
+                  label="price"
+                  type="price"
+                  id="price"
+                  autoComplete="0"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="group_id"
+                  label="Group id"
+                  type="group_id"
+                  id="group_id"
+                  autoComplete="0"
+                />
+              </Grid>
+            
             </Grid>
             <Button
               type="submit"
@@ -122,19 +139,12 @@ export default function SignUp() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign Up
+              Add
             </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="/SignIn" variant="body2">
-                  Already have an account? Sign in
-                </Link>
-              </Grid>
-            </Grid>
           </Box>
+          
         </Box>
         <Copyright sx={{ mt: 5 }} />
-      </Container>
     </ThemeProvider>
   );
 }

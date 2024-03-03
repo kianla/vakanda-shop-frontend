@@ -6,6 +6,10 @@ import Box from '@mui/material/Box';
 import ItemAPI from '../api/item'
 import { Item, ItemGroup } from '../types/common'
 import ItemCard from './ItemCard'
+import Grid from '@mui/material/Grid';
+import { makeStyles } from '@mui/material';
+
+
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -46,10 +50,12 @@ type Props = {
   onAction: (id: number) => void;
 }
 
+
 export default function ShopTabs({ onAction }: Props) {
   const [tabs, setTabs] = React.useState<Array<{ id: number, label: string }>>([]);
   const [items, setItems] = React.useState<Array<Item>>([]);
   const [value, setValue] = React.useState(0);
+ 
 
   React.useEffect(() => {
     getItemGroups();
@@ -101,10 +107,11 @@ export default function ShopTabs({ onAction }: Props) {
         ))}
       </Tabs>
       <TabPanel value={value} index={value}>
-        <div style={{ display: 'flex', gap: '25px', maxWidth: '1500px', margin: '0 auto' }}>
+        <div style={{ display: 'flex', gap: '30px', maxWidth: '800px', margin: '10 auto' }}>
           {items.map(item => (
             <ItemCard item={item} onAction={(id) => handleCardAction(id)} />
           ))}
+      
         </div>
       </TabPanel>
 

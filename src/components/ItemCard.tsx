@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardContent, CardActions, Typography, Button, CardMedia, Link } from '@mui/material';
+import { Card, CardContent, CardActions, Typography, Button, CardMedia, Link, Grid } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { Item } from '../types/common';
 
@@ -15,7 +15,8 @@ function ItemCard ({ item, onAction }: Props)  {
   }
 
   return (
-    <Card sx={{ maxWidth: 400 }}>
+    <Grid  container spacing={2} direction="row" alignItems="flex-start" >
+    <Card sx={{ width: 200 }}>
       <CardMedia
         sx={{ height: 200 }}
         image={item.photo}
@@ -39,6 +40,7 @@ function ItemCard ({ item, onAction }: Props)  {
         </Button>
       </CardContent>
     </Card>
+   </Grid>
   );
 };
 

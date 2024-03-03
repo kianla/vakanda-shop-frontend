@@ -47,9 +47,9 @@ export default function SignUp() {
       data.get('password') as string,
       data.get('email') as string,
       data.get('address') as string,
-      'Customer'
+      'Admin'
     ).then((response) => {
-      navigate('/SignIn') 
+      navigate('/Dashboard') 
     }).catch(error => console.log(error))
   };
 
@@ -114,7 +114,12 @@ export default function SignUp() {
                   autoComplete="new-password"
                 />
               </Grid>
-              
+              {/* <Grid item xs={12}>
+                <FormControlLabel
+                  control={<Checkbox value="allowExtraEmails" color="primary" />}
+                  label="I want to receive inspiration, marketing promotions and updates via email."
+                />
+              </Grid> */}
             </Grid>
             <Button
               type="submit"
@@ -124,13 +129,6 @@ export default function SignUp() {
             >
               Sign Up
             </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="/SignIn" variant="body2">
-                  Already have an account? Sign in
-                </Link>
-              </Grid>
-            </Grid>
           </Box>
         </Box>
         <Copyright sx={{ mt: 5 }} />

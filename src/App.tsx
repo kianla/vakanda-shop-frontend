@@ -23,6 +23,8 @@ import ChangeAddress from './components/ChangeAddress';
 import ChangePassword from './components/ChangePassword';
 import GridviewControl from './components/UserOrdersView';
 import Gridview from './components/Gridview';
+import NewAdminuser from './components/NewAdminuser';
+import AddNewItem from './components/AddItem';
 
 
 const App: React.FC = () => {
@@ -40,6 +42,8 @@ const App: React.FC = () => {
     <Route path="/ChangePassword" element={<ChangePassword/>} />
     <Route path="/ChangeAddress" element={<ChangeAddress />} />
     <Route path="/GridviewControl" element={<Gridview/>} />
+    <Route path="/NewAdminuser" element={<NewAdminuser />} />
+    <Route path="/NewItem" element={<AddNewItem />} />
 
   </Routes>
 </Router>
