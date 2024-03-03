@@ -44,9 +44,9 @@ export default function SignUp() {
     });
     await UserAPI.signUp(
       data.get('username') as string,
-      data.get('address') as string,
-      data.get('email') as string,
       data.get('password') as string,
+      data.get('email') as string,
+      data.get('address') as string,
       'Customer'
     ).then((response) => {
       navigate('/SignIn') 

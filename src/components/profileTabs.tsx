@@ -5,6 +5,9 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import SettingsCardList from './SettingsCard';
 import AdministrationCardList from './AdministrationCard';
+import GridviewControl from './UserOrdersView';
+import { Item, Order } from '../types/common';
+import  OrderAPI  from '../api/order';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -14,7 +17,7 @@ interface TabPanelProps {
 
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
-
+ 
   return (
     <div
       role="tabpanel"
@@ -41,10 +44,29 @@ function a11yProps(index: number) {
 
 export default function ProfileTabs() {
   const [value, setValue] = React.useState(0);
+  const currentUserType = window.localStorage.getItem("Type");
+  const [orders, setOrders] = React.useState<Array<Order>>([]);
+  const currentUserId = window.localStorage.getItem("user_id");
+  
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
+  React.useEffect(() => {
+    getOrders(Number(currentUserId));
+  }, [currentUserId]);
+
+
+  const getOrders = async (UserId: number) => {
+    await OrderAPI.getUserOrders(UserId).then(response => {
+      setOrders(response.data);
+      console.log(response.data);
+    });
+  }
+ 
+
+
+
 
   return (
     <Box
@@ -60,14 +82,22 @@ export default function ProfileTabs() {
       >
         <Tab label="Orders" {...a11yProps(0)} />
         <Tab label="Settings" {...a11yProps(1)} />
+     
+        {currentUserType === "Admin" &&(
+          
         <Tab label="Administration" {...a11yProps(2)} />
+        )}
+
       </Tabs>
+
       <TabPanel value={value} index={0}>
-        Item One
+      <GridviewControl orders ={orders} />
       </TabPanel>
+
       <TabPanel value={value} index={1}>
        <SettingsCardList></SettingsCardList>
       </TabPanel>
+      
       <TabPanel value={value} index={2}>
         <AdministrationCardList></AdministrationCardList>
       </TabPanel>

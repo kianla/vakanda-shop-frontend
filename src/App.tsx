@@ -21,9 +21,13 @@ import Dashboard from './components/profile';
 import Shop from './components/Shop';
 import ChangeAddress from './components/ChangeAddress';
 import ChangePassword from './components/ChangePassword';
+import GridviewControl from './components/UserOrdersView';
+import Gridview from './components/Gridview';
 
 
 const App: React.FC = () => {
+
+
   return (
     <Router> 
   
@@ -35,6 +39,7 @@ const App: React.FC = () => {
     <Route path="/Shop" element={<Shop />} />
     <Route path="/ChangePassword" element={<ChangePassword/>} />
     <Route path="/ChangeAddress" element={<ChangeAddress />} />
+    <Route path="/GridviewControl" element={<Gridview/>} />
 
   </Routes>
 </Router>

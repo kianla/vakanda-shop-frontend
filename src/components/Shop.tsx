@@ -86,6 +86,7 @@ const defaultTheme = createTheme();
 
 export default function Shop() {
   const currentUserId = window.localStorage.getItem("user_id");
+
   const [open, setOpen] = React.useState(true);
   const [order, setOrder] = React.useState<Order | null>(null);
   const [orderItems, setOrderItems] = React.useState<Array<Item>>([]);
@@ -106,7 +107,9 @@ export default function Shop() {
   }, [order]);
 
   const getCurrentOrder = async () => {
+     console.log(currentUserId);
     if (currentUserId)
+      console.log(currentUserId);
       await OrderAPI.getCurrentOrder(Number(currentUserId)).then(response => {
         setOrder(orderNormalizer(response.data));
       });
@@ -115,6 +118,7 @@ export default function Shop() {
   const getOrderItems = async (orderId: number) => {
     await OrderAPI.getOrderItems(orderId).then(response => {
       setOrderItems(response.data);
+      console.log(response.data);
     });
   }
 
@@ -128,10 +132,10 @@ export default function Shop() {
 
   const handleDeleteOrderItem = async (id: number) => {
     if (order && id) {
-      await OrderAPI.deleteOrderItem(id).then(response => {
-        setOrderItems(orderItems.filter(item => item.id !== id));
-      })
+      await OrderAPI.deleteOrderItem(id)
+      window.location.reload();
     }
+   
   }
 
   const handleSaveOrder = async () => {
@@ -140,6 +144,7 @@ export default function Shop() {
         getCurrentOrder();
         setDialogOpen(false);
       });
+      window.location.reload();
     }
   }
 

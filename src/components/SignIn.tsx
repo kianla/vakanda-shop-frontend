@@ -44,9 +44,10 @@ export default function SignIn() {
     
     await UserAPI.signIn(data.get('email') as string, data.get('password') as string).then(
       (response) => {
-        window.localStorage.setItem('user_id', response.data.id);
-        window.localStorage.setItem('username', response.data.email);
-        window.localStorage.setItem('password', response.data.passwrod);
+        window.localStorage.setItem('user_id', response.data[0].id);
+        window.localStorage.setItem('email', response.data[0].email);
+        window.localStorage.setItem('password', response.data[0].passwrod);
+        window.localStorage.setItem('Type', response.data[0].type);
         navigate('/');
       }
     ).catch(error => console.log(error));

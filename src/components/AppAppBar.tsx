@@ -24,6 +24,7 @@ interface AppAppBarProps {
 
 function AppAppBar({ mode, toggleColorMode }: AppAppBarProps) {
   const [open, setOpen] = React.useState(false);
+  const currentUser = window.localStorage.getItem("email");
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
@@ -36,6 +37,15 @@ function AppAppBar({ mode, toggleColorMode }: AppAppBarProps) {
     navigate('/Shop'); 
   };
  
+  const handleLogout = () => {
+    // Handle profile logic here
+    window.localStorage.setItem('user_id', "");
+    window.localStorage.setItem('email', "");
+    window.localStorage.setItem('password', "");
+    window.localStorage.setItem('Type', "");
+    window.location.reload();
+  };
+
 
   return (
     <div>
@@ -83,6 +93,7 @@ function AppAppBar({ mode, toggleColorMode }: AppAppBarProps) {
               <Typography variant="body1" color="primary" fontSize= "25px">
                     VAKANDA
                </Typography>
+               {currentUser && (
               <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                 <MenuItem
                   onClick={redirectToShop}
@@ -100,9 +111,10 @@ function AppAppBar({ mode, toggleColorMode }: AppAppBarProps) {
                   Dashboard
                   </Typography>
                 </MenuItem>
-                
+              
                
               </Box>
+                )}
             </Box>
             <Box
               sx={{
@@ -111,17 +123,29 @@ function AppAppBar({ mode, toggleColorMode }: AppAppBarProps) {
                 alignItems: 'center',
               }}
             >
-          
-              <Button
-                color="primary"
-                variant="text"
-                size="small"
-                component="a"
-                href="/SignIn"
-                target="_blank"
+               {currentUser && (
+                <Button
+                variant="contained"
+                color="secondary"
+                onClick={handleLogout}
               >
-                Sign in
+                Logout
               </Button>
+              )}
+          
+              {!currentUser && (
+                <Button
+                  color="primary"
+                  variant="text"
+                  size="small"
+                  component="a"
+                  href="/SignIn"
+                  target="_blank"
+                >
+                  Sign in
+                </Button>
+              )}
+              {!currentUser && (
               <Button
                 color="primary"
                 variant="contained"
@@ -132,6 +156,7 @@ function AppAppBar({ mode, toggleColorMode }: AppAppBarProps) {
               >
                 Sign up
               </Button>
+              )}
             </Box>
             <Box sx={{ display: { sm: '', md: 'none' } }}>
               <Button

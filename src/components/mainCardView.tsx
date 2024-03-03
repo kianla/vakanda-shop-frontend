@@ -12,7 +12,7 @@ function MyCardList ()  {
   ];
   const navigate = useNavigate();
   const redirectToShop = () => {
-    navigate('/Shop'); 
+   
   };
 
   return (

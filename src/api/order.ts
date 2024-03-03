@@ -7,6 +7,14 @@ function OrderAPI() {
                 userId
             }
         })),
+        getUserOrders: (userId: number) => (axios.get('Orders/UserOrders', {
+            params: {
+                userId
+            }
+        })),
+        getOrders: () => (axios.get('Orders/', {
+           
+        })),
         getOrderItems: (orderId: number) => (axios.get('/Items', {
             params: {
                 orderId

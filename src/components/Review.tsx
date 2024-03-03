@@ -6,7 +6,8 @@ import ListItemText from '@mui/material/ListItemText';
 import Stack from '@mui/material/Stack';
 import Grid from '@mui/material/Grid';
 import { Item } from '../types/common';
-import { Button } from '@mui/material';
+import { Button, IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
 type Props = {
   orderItems: Array<Item>;
@@ -19,6 +20,9 @@ export default function Review({ orderItems, onOrderItemDelete }: Props) {
     let sum = 0;
     orderItems.map(item => sum += item.price);
     return sum;
+  }
+  const handleClose = () => {
+    window.location.reload();
   }
 
   return (
@@ -43,6 +47,10 @@ export default function Review({ orderItems, onOrderItemDelete }: Props) {
           </Typography>
         </ListItem>
       </List>
+      <IconButton onClick={handleClose}>
+        <CloseIcon />
+      </IconButton>
+
     </React.Fragment>
   );
 }
